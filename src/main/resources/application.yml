@@ -1,0 +1,11 @@
+server:
+  port: 3200
+
+  spring:
+    application:
+      name: travel-java
+
+llm:
+  base-url: https://api.siliconflow.cn/v1
+  model: zai-org/GLM-5.3-Flash
+  api-key: ${LLM_API_KEY}
