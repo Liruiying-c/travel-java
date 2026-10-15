@@ -1,11 +1,33 @@
 server:
   port: 3200
 
-  spring:
-    application:
-      name: travel-java
+spring:
+  application:
+    name: travel-java
+  mvc:
+    async:
+      # 与 llm.sse-timeout 对齐，避免异步请求被容器提前掐断
+      request-timeout: 1800000
 
 llm:
   base-url: https://api.siliconflow.cn/v1
   model: zai-org/GLM-5.3-Flash
-  api-key: ${LLM_API_KEY}
+  # 密钥从环境变量读取，不要写进代码仓库
+  api-key: ${LLM_API_KEY:}
+  temperature: 0.7
+  connect-timeout: 10s
+  # 非流式：连接上多久没有数据就算失败。模型生成整份行程期间没有任何字节下发，
+  # 所以给足 300 秒；长耗时场景走 chatStreaming（内部流式）更稳，不靠调大这个值硬等。
+  read-timeout: 300s
+  stream-read-timeout: 180s
+  sse-timeout: 30m
+  worker-threads: 4
+  queue-capacity: 200
+
+  # 行程推荐走哪条路径：false = 阻塞式（默认，与你原来"半分钟返回"的行为一致）
+  # 想对比两条路径：改这一项、重启、重发同一个请求，看日志里的「耗时=」和「输出字符数=」
+  recommend-via-stream: false
+
+  # 服务商专有参数，会原样并入请求体。例如某些模型在流式下默认开启"思考"，
+  # 填 enable_thinking: false 可让它走快速路径（字段名以服务商文档为准）
+  extra-params: {}
