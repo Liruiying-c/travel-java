@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RestController
 @RequestMapping("/api/travel")
 @AllArgsConstructor
-public class TravelController {
+public class TravelAIController {
 
     private final TravelService travelService;
 

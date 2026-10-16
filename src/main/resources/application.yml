@@ -8,6 +8,12 @@ spring:
     async:
       # 与 llm.sse-timeout 对齐，避免异步请求被容器提前掐断
       request-timeout: 1800000
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/travel_db
+    username: root
+    password: MySQL
+
 
 llm:
   base-url: https://api.siliconflow.cn/v1
@@ -31,3 +37,11 @@ llm:
   # 服务商专有参数，会原样并入请求体。例如某些模型在流式下默认开启"思考"，
   # 填 enable_thinking: false 可让它走快速路径（字段名以服务商文档为准）
   extra-params: {}
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+

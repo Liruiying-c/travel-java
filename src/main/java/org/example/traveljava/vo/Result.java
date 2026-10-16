@@ -23,6 +23,7 @@ public class Result<T> { // 泛型类
         Result<T> result = new Result<T>();
         result.setSuccess(true);
         result.setCode(200);
+        result.setMessage("操作成功");
         return result;
     }
 
@@ -43,12 +44,11 @@ public class Result<T> { // 泛型类
         return result;
     }
 
-    public static <T> Result<T> fail(Integer code,T msg) {
+    public static <T> Result<T> fail(Integer code,String msg) {
         Result<T> result = new Result<T>();
         result.setSuccess(false);
         result.setCode(code);
-        result.setMessage("fail");
-        result.setData(msg);
+        result.setMessage(msg);
         return result;
     }
 
