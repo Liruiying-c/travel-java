@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class TravelChatVO {
-    private Integer chatId;
+    private Integer userId;
+    private Integer id;
     private String userMsg;
     private LocalDateTime userTime;
     private String aiMsg;

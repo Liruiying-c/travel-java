@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.traveljava.Mapper.HistoryMapper">
+
+
+    <insert id="insertTrip" useGeneratedKeys = "true" keyProperty = "tripId"  keyColumn = "id">
+        insert into t_trip(city,days,total_budget,daily_itinerary,budget_breakdown,tips,warnings)
+        values (#{city},#{days},#{totalBudget},
+                                   #{dailyItinerary, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                                   #{budgetBreakdown, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                                   #{tips, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                                   #{warnings, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler})
+    </insert>
+
+    <resultMap id="TripVOMap" type="org.example.traveljava.vo.TravelRecommendVO">
+        <id column="id" property="id"/>
+        <result column="city" property="city"/>
+        <result column="days" property="days"/>
+        <result column="total_budget" property="totalBudget"/>
+        <result column="daily_itinerary" property="dailyItinerary" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="budget_breakdown" property="budgetBreakdown" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="tips" property="tips" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="warnings" property="warnings" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+    </resultMap>
+
+    <select id="selectTripById" resultMap="TripVOMap">
+        select * from t_trip where id = #{id}
+    </select>
+
+</mapper>

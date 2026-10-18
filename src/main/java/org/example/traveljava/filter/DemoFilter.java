@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*", asyncSupported = true) //支持异步请求
 public class DemoFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -20,10 +20,10 @@ public class DemoFilter implements Filter {
 
         // 1.获取请求url
         String url = req.getRequestURL().toString();
-        System.out.println("请求的url:{}");
+        System.out.println("请求的url:{}" + url);
 
         // 2.判断请求url中是否包含login,如果包含，说明是登录操作，放行
-        if (url.contains("login") || url.contains("login")) {
+        if (url.contains("login") || url.contains("register")) {
             System.out.println("登录操作，放行...");
             chain.doFilter(request, response);
             return;

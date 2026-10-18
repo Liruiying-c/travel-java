@@ -12,7 +12,7 @@ public class JwtUtils {
         String jwt = Jwts.builder()
                 .setClaims(claims) //自定义内容（载荷）
                 .signWith(SignatureAlgorithm.HS256,"itiheima") //签名算法
-                .setExpiration(new Date(System.currentTimeMillis() + 12 * 3600 * 1000)) //有效期12h
+                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 3600 * 1000)) //有效期12h
                 .compact();
 
         return jwt;

@@ -43,7 +43,7 @@ public class TravelLoginController {
                     .secure(false)
                     .sameSite("Lax")
                     .path("/")
-                    .maxAge(12 * 3600)
+                    .maxAge(7 * 24 * 3600)
                     .build();
             response.addHeader(HttpHeaders.SET_COOKIE,cookie.toString());
 
@@ -71,7 +71,7 @@ public class TravelLoginController {
                 .secure(false)
                 .sameSite("Lax")
                 .path("/")
-                .maxAge(12 * 3600)
+                .maxAge(7 * 24 * 3600)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE,cookie.toString());
 

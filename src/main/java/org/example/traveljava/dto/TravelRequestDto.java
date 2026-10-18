@@ -8,6 +8,8 @@ import lombok.Data;
 
 @Data
 public class TravelRequestDto {
+    private Integer userId;
+
     @NotNull(message = "城市不能为空")
     private String city;
 

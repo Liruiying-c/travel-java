@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.traveljava.dto.ChatRequestDto;
 import org.example.traveljava.dto.TravelRequestDto;
+import org.example.traveljava.service.HistoryService;
 import org.example.traveljava.service.TravelService;
 import org.example.traveljava.vo.Result;
 import org.example.traveljava.vo.TravelRecommendVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -17,6 +19,9 @@ public class TravelAIController {
 
     private final TravelService travelService;
 
+    @Autowired
+    private HistoryService historyService;
+
     @GetMapping("/hello")
     public Result<String> hello() {
         return Result.success("Hello World!");
@@ -25,6 +30,10 @@ public class TravelAIController {
     @PostMapping("/recommend")
     public Result<TravelRecommendVO> recommend(@Valid @RequestBody TravelRequestDto travelRequestDto) { // 开启参数校验 校验请求的参数
         TravelRecommendVO result = travelService.recommend(travelRequestDto.getCity(), travelRequestDto.getDays(), travelRequestDto.getBudget());
+        // 将查询历史保存到数据库
+        result.setUserId(travelRequestDto.getUserId());
+//        System.out.println(result);
+        historyService.saveTrip(result);
         return Result.success(result);
     }
 

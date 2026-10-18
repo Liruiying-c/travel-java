@@ -122,6 +122,13 @@
         </dependency>
 
 
+        <!-- mybatis-plus 核心依赖，里面自带JacksonTypeHandler -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

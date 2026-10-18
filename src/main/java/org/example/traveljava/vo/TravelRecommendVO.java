@@ -1,19 +1,36 @@
 package org.example.traveljava.vo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+
 
 import java.util.List;
 
 @Data
+@TableName(value = "t_trip", autoResultMap = true)
 public class TravelRecommendVO {
+    private Integer userId;
+    private Integer tripId;
+    private Integer id;
     private Boolean success;
     private String city;
     private Integer days;
     private Double totalBudget;
+
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<DailyItinerary> dailyItinerary;
+
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private BudgetBreakdown  budgetBreakdown;
+
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> tips;
+
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> warnings;
+
     private String error;
     private String rawResponse;
 

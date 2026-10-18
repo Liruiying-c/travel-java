@@ -12,4 +12,5 @@ public interface UserMapper {
 
     @Insert("insert into t_user(username,password_hash,nickname,status) values (#{username},#{passwordHash},#{nickname},1)")
     int insert(UserVO userVO);
+
 }
