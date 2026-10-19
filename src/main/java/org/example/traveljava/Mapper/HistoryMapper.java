@@ -33,5 +33,10 @@ public interface HistoryMapper {
     @Select("select t_search.is_collected from t_search where id = #{id}")
     public Integer checkCollect(Integer id);
 
+    @Delete("delete from t_trip where id = #{tripId}")
+    public void deleteTrip(Integer tripId);
+
+    @Delete("delete from t_search where id = #{id}")
+    public void deleteSearch(Integer id);
 
 }

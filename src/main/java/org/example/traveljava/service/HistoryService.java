@@ -52,7 +52,7 @@ public class HistoryService {
         // 先插入详细行程，获取行程id
         try{
             historyMapper.insertTrip(travelRecommendVO);
-            System.out.println(travelRecommendVO.getTripId());
+//            System.out.println(travelRecommendVO.getTripId());
             historyMapper.insertSearch(travelRecommendVO);
             return Result.success();
         } catch (Exception e) {
@@ -78,6 +78,21 @@ public class HistoryService {
             Integer isCollected = historyMapper.checkCollect(id);
             return Result.success(isCollected);
         }catch (Exception e) {
+            System.err.println(e.getMessage());
+            return Result.error("error", e.getMessage());
+        }
+    }
+
+    public Result deleteTrip (Integer id) {
+        // 先查出对应的trip_id
+        Integer tripId = historyMapper.selectTripId(id);
+        System.out.println(tripId);
+        // 再删除两个表中对应的数据
+        try {
+            historyMapper.deleteSearch(id);
+            historyMapper.deleteTrip(tripId);
+            return Result.success("删除成功");
+        } catch (Exception e) {
             System.err.println(e.getMessage());
             return Result.error("error", e.getMessage());
         }

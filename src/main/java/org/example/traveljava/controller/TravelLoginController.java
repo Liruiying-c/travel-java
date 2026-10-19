@@ -94,5 +94,15 @@ public class TravelLoginController {
         return Result.success("退出成功");
     }
 
+    @PostMapping("/update_nickname")
+    public Result updateNickname(Integer userId,String nickName){
+        // 根据id查找数据进行修改
+        return userService.updateNickname(userId,nickName);
+    }
+
+    @PostMapping("/update_pwd")
+    public Result updatePassword(Integer userId,String oldPassword,String newPassword){
+        return userService.updatePassword(userId,oldPassword,newPassword);
+    }
 
 }

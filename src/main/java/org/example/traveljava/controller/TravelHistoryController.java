@@ -44,4 +44,9 @@ public class TravelHistoryController {
         return historyService.checkCollect(id);
     }
 
+    @PostMapping("/delete_trip")
+    public Result deleteTrip(Integer id){
+        return historyService.deleteTrip(id);
+    }
+
 }

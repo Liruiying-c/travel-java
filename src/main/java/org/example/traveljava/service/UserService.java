@@ -25,8 +25,8 @@ public class UserService {
     // 登录，验证是否存在这个用户，且密码是否正确
     public UserVO login(String username, String rawPassword,String nickname) {
        UserVO e = userMapper.SelectByUsername(username);
-       System.out.println(nickname);
-       System.out.println(e.getNickname());
+//       System.out.println(nickname);
+//       System.out.println(e.getNickname());
        if(e == null || !nickname.equals(e.getNickname())) {
            return null;
        }
@@ -55,5 +55,32 @@ public class UserService {
         userMapper.insert(e);
         e = userMapper.SelectByUsername(userVO.getUsername());
         return e;
+    }
+
+    // 修改昵称
+    public Result updateNickname(Integer userId,String nickName) {
+        try {
+            userMapper.updateNickname(userId,nickName);
+            return Result.success("更新成功");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return Result.error("error",e.getMessage());
+        }
+    }
+
+    // 修改密码
+    public Result updatePassword(Integer userId,String oldPassword, String newPassword) {
+        // 通过用户id查到当前密码
+        String passwordHash = userMapper.selectPassword(userId);
+        // 对比
+        boolean match = passwordEncoder.matches(oldPassword,passwordHash);
+        if(!match) {
+            return Result.fail(401,"密码错误");
+        }else {
+            // 存入新密码
+            newPassword = passwordEncoder.encode(newPassword);
+            userMapper.updatePassword(userId,newPassword);
+            return Result.success("修改密码成功");
+        }
     }
 }
