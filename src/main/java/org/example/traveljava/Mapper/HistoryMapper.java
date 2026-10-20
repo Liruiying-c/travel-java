@@ -19,8 +19,8 @@ public interface HistoryMapper {
     public TravelRecommendVO selectTripById(Integer id);
 
     @Insert("insert into t_search(user_id,trip_id) values (#{userId},#{tripId})")
+    @Options(useGeneratedKeys = true, keyProperty = "tripId")
     public void insertSearch(TravelRecommendVO recommendVO);
-
 
     public Integer insertTrip(TravelRecommendVO recommendVO);
 

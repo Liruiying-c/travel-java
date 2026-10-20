@@ -54,7 +54,7 @@ public class HistoryService {
             historyMapper.insertTrip(travelRecommendVO);
 //            System.out.println(travelRecommendVO.getTripId());
             historyMapper.insertSearch(travelRecommendVO);
-            return Result.success();
+            return Result.success(travelRecommendVO.getTripId()); // 返回行程下标
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return Result.error("error", e.getMessage());

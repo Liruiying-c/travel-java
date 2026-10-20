@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -27,7 +28,8 @@ public class UserService {
        UserVO e = userMapper.SelectByUsername(username);
 //       System.out.println(nickname);
 //       System.out.println(e.getNickname());
-       if(e == null || !nickname.equals(e.getNickname())) {
+       // 用 Objects.equals：昵称没传时返回"登录失败"，而不是抛 NPE 变成 500
+       if(e == null || !Objects.equals(nickname, e.getNickname())) {
            return null;
        }
        // 后端做密码比对

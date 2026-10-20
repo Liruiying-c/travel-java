@@ -10,7 +10,8 @@ import lombok.Data;
 public class TravelRequestDto {
     private Integer userId;
 
-    @NotNull(message = "城市不能为空")
+    // @NotNull 挡不住空字符串，用 @NotBlank 才符合"不能为空"的本意
+    @NotBlank(message = "城市不能为空")
     private String city;
 
 

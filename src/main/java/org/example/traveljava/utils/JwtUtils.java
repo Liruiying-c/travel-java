@@ -5,12 +5,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class JwtUtils {
     static public String generateJwt(Map<String, Object> claims) {
         String jwt = Jwts.builder()
-                .setClaims(claims) //自定义内容（载荷）
+                // 复制成可变 Map：jjwt 会往里写 exp，传 Map.of(...) 时原实现会抛
+                // UnsupportedOperationException
+                .setClaims(new HashMap<>(claims)) //自定义内容（载荷）
                 .signWith(SignatureAlgorithm.HS256,"itiheima") //签名算法
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 3600 * 1000)) //有效期12h
                 .compact();
